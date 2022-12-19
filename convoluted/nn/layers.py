@@ -6,7 +6,6 @@ from itertools import product
 from .utils import zero_pad
 
 
-
 class Function:
     """
     Abstract model of a differentiable function.
@@ -27,7 +26,10 @@ class Function:
         return output
 
     def forward(self, *args, **kwargs):
-        
+        """
+        Forward pass of the function. Calculates the output value and the
+        gradient at the input as well.
+        """
         pass
 
     def backward(self, *args, **kwargs):
@@ -261,6 +263,7 @@ class Linear(Layer):
         dX = dY.dot(self.grad["X"].T)
         # calculating the global gradient wrt to weights
         X = self.cache["X"]
+        print(self.grad["W"])
         dW = self.grad["W"].T.dot(dY)
         db = np.sum(dY, axis=0, keepdims=True)
         # caching the global gradients
